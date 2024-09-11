@@ -1,4 +1,4 @@
-
+import { notFound } from "next/navigation"
 interface Params{
     params:{
         reviewId: string
@@ -6,6 +6,9 @@ interface Params{
     }
 }
 export default function Review({params}:Params){
+    if(parseInt(params.reviewId)>200){
+        notFound()
+    }
     return(
         <div>
             <h2>Review</h2>
