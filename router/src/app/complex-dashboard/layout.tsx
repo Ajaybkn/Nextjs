@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
   users: React.ReactNode;
   revenue: React.ReactNode;
   notifications: React.ReactNode;
+  login: React.ReactNode;
 }
 
 export default function DashboardLayout({
@@ -13,11 +14,15 @@ export default function DashboardLayout({
   users,
   revenue,
   notifications,
+  login,
 }: DashboardLayoutProps) {
-  console.log(notifications); // Corrected prop name
-  return (
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(login); // Corrected prop name
+  return isLoggedIn ? (
     <div>
-      <button>change look</button>
+      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+        {isLoggedIn ? "Logout" : "Login"}
+      </button>
       <div>{children}</div>
       <div style={{ display: "flex" }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -26,6 +31,14 @@ export default function DashboardLayout({
         </div>
         <div style={{ display: "flex", flex: 1 }}>{notifications}</div>
       </div>
+    </div>
+  ) : (
+    <div>
+      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+        {isLoggedIn ? "Logout" : "Login"}
+      </button>
+
+      {login}
     </div>
   );
 }
